@@ -12,24 +12,18 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/synthetics")
-public class SyntheticPriceController {
+public class SyntheticsController {
 
     @Autowired
     private DerivClient derivClient;
 
-    @Autowired
-    private DerivService derivService;
-
-
-
     @GetMapping("/connect")
     public String makeConnection() throws DeploymentException, IOException, InterruptedException {
-        derivClient.makeConnection();
-        return "Connection has been made";
+        return derivClient.makeConnection();
     }
 
-    @GetMapping("/getprices")
-    public ResponseEntity<StandardResponse> getPriceList(){
-        return derivService.forwardToClient();
+    @PostMapping("/closeconnection")
+    public String closeConnection() throws IOException{
+        return derivClient.closeSession();
     }
 }

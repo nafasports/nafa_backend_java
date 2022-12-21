@@ -1,9 +1,8 @@
 package com.deriska.psydtrader.service;
 
 import com.deriska.psydtrader.entity.Pojo.TickResponse;
-import com.deriska.psydtrader.entity.StandardResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,18 +11,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DerivService {
 
-    private List<TickResponse> tickResponse;
 
     public void getFromDerivClient(List<TickResponse> responses){
-        this.tickResponse = responses;
-        System.out.println(tickResponse.toString());
-    }
 
-    public ResponseEntity<StandardResponse> forwardToClient() {
-        try {
-            return StandardResponse.sendHttpResponse(true, "Successful", tickResponse, "200");
-        } catch (Exception e) {
-            return StandardResponse.sendHttpResponse(false, "Failed");
+        PriceAlertService alertService = new PriceAlertService();
+        double price = 0;
+        for(TickResponse res : responses){
+            price = res.getTick().getQuote();
+            alertService.checkSyntheticPrice(price);
+            // System.out.println(price); 
         }
     }
+
+
 }

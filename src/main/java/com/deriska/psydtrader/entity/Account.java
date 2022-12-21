@@ -22,9 +22,11 @@ public class Account {
     private int numberOfTrades;
     private boolean inUse;
 
-    public Account(Long accountId, String accountName, String currency, double accountBalance, int numberOfTrades, boolean inUse) {
+    public Account(Long accountId, String accountName, String currency, double accountBalance,
+                   Long userId, int numberOfTrades, boolean inUse) {
         this.accountId = accountId;
         this.accountName = accountName;
+        this.userId = userId;
         this.currency = currency;
         this.accountBalance = accountBalance;
         this.numberOfTrades = numberOfTrades;
@@ -49,6 +51,14 @@ public class Account {
 
     public String getCurrency() {
         return currency;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public void setCurrency(String currency) {
