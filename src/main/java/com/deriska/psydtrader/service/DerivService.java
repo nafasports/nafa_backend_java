@@ -1,27 +1,68 @@
 package com.deriska.psydtrader.service;
 
-import com.deriska.psydtrader.entity.Pojo.TickResponse;
-import lombok.RequiredArgsConstructor;
+import com.deriska.psydtrader.entity.*;
+import com.deriska.psydtrader.entity.Pojo.RunningTradeRequest;
+import com.deriska.psydtrader.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-@RequiredArgsConstructor
 public class DerivService {
 
+    @Autowired
+    private TradeHolderRepo holderRepo;
+    @Autowired
+    private TradeJournalRepo journalRepo;
+    @Autowired
+    private PsychEvalService psychEvalService;
+    @Autowired
+    private TradeRequestRepo tradeRequestRepo;
+    @Autowired
+    private TradingPlanRepo tradingPlanRepo;
+    @Autowired
+    private TradeJournalService tradingJournalService;
+    @Autowired
+    private RiskManagementRepo riskManagementRepo;
+    @Autowired
+    private RiskAnalysisResponseRepo responseRepo;
+    @Autowired
+    private ExitStrategyRepo exitStrategyRepo;
 
-    public void getFromDerivClient(List<TickResponse> responses){
+    private Long tradeId;
 
-        PriceAlertService alertService = new PriceAlertService();
-        double price = 0;
-        for(TickResponse res : responses){
-            price = res.getTick().getQuote();
-            alertService.checkSyntheticPrice(price);
-            // System.out.println(price); 
+
+    public void evaluateTrade(RunningTradeRequest request){
+//        RiskAnalysisRequest request = new RiskAnalysisRequest();//Replace with function that calls Deriv API to check current state of trade
+        Trades trades = journalRepo.findByEntryPrice(request.getEntryPrice()).get();
+        this.tradeId = trades.getId();
+        TradeHolder holder = holderRepo.findTopByTradeIdOrderByCreatedAtDesc(tradeId).get();
+        int count = 0;
+        if(request.isActive()) {
+            if (request.getStopLossPrice() != holder.getPreviousStopLossLevel()
+                    || request.getLotSize() != holder.getPreviousLotSize()
+                    || request.getTakeProfitPrice() != holder.getPreviousTakeProfitLevel()) {
+                count = count + 1;
+                TradingPlan tradingPlan = tradingPlanRepo.findByTradeId(tradeId).get();
+                ExitStrategy exitStrategy = exitStrategyRepo.findByTradingPlanIdAndCount(tradingPlan.getPlanId(), count).get();
+                RiskManagement riskManagement = riskManagementRepo.findByTradingPlanIdAndRiskCount(tradingPlan.getPlanId(), count).get();
+                RiskAnalysisResponse response = responseRepo.findByTradeId(tradeId).get();
+                TradeRequest tradeRequest = tradeRequestRepo.findByEntryPrice(request.getEntryPrice()).get();
+                psychEvalService.evaluateWhileInTrade(response, tradeRequest, request, trades);
+
+                holder.setPreviousStopLossLevel(request.getStopLossPrice());
+                holder.setPreviousTakeProfitLevel(request.getTakeProfitPrice());
+                holder.setPreviousLotSize(request.getLotSize());
+
+                holderRepo.save(holder);
+            }
+        }else{
+            TradeChanges trade = psychEvalService.updateTradeRecordAfterTradeIsClosed(request, trades);
+            tradingJournalService.updateRecordAfterClosedTraded(request, trades);
         }
     }
 
-
+    public Account getAccountStatus(Long accountId){
+        Account accountCheck = new Account();
+        return accountCheck;
+    }
 }

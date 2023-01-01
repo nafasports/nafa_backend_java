@@ -7,9 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
+//Class to represent a synthetic asset(v_10, v_25 ... ) to watch
+
 @Entity
 @RequiredArgsConstructor
-public class SyntheticsAlertList {
+public class SyntheticsAsset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +27,7 @@ public class SyntheticsAlertList {
 
     private String remark;
 
-    public SyntheticsAlertList(Long id, String watchId, String symbol,Long accountId, String remark,
+    public SyntheticsAsset(Long id, String watchId, String symbol,Long accountId, String remark,
                         double watchPrice, String position, boolean isActive,String alertMedium) {
         this.id = id;
         this.alertMedium = alertMedium;

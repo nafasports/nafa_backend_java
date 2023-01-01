@@ -21,6 +21,8 @@ public class Account {
     private double accountBalance;
     private int numberOfTrades;
     private boolean inUse;
+    private String tradingStrategy;
+    private String tradingPlan;
 
     public Account(Long accountId, String accountName, String currency, double accountBalance,
                    Long userId, int numberOfTrades, boolean inUse) {

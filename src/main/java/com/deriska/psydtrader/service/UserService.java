@@ -39,7 +39,7 @@ public class UserService {
 
         User adminUser = new User();
         adminUser.setUserName("admin123");
-        adminUser.setUserPassword(getEncodedPassword("admin@pass"));
+        adminUser.setUserPassword(passwordEncoder.encode("admin@pass"));
         adminUser.setUserFirstName("admin");
         adminUser.setUserLastName("admin");
         Set<Role> adminRoles = new HashSet<>();
@@ -70,9 +70,5 @@ public class UserService {
 
             return StandardResponse.sendHttpResponse(false, "Could not save user");
         }
-    }
-
-    public String getEncodedPassword(String password) {
-        return passwordEncoder.encode(password);
     }
 }

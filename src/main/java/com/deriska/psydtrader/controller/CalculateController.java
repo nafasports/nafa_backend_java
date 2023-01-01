@@ -1,7 +1,7 @@
 package com.deriska.psydtrader.controller;
 
+import com.deriska.psydtrader.entity.TradeRequest;
 import com.deriska.psydtrader.entity.StandardResponse;
-import com.deriska.psydtrader.entity.Trades;
 import com.deriska.psydtrader.service.CalculationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class CalculateController {
     private CalculationService calculationService;
 
     @PostMapping
-    public ResponseEntity<StandardResponse> calculateTradeRisk(@RequestBody Trades trade){
+    public ResponseEntity<StandardResponse> calculateTradeRisk(@RequestBody TradeRequest trade){
         return calculationService.calculateTradeRisk(trade);
     }
 }

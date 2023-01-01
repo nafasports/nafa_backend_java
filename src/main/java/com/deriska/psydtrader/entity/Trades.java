@@ -1,5 +1,6 @@
 package com.deriska.psydtrader.entity;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,14 +11,17 @@ import java.util.List;
 
 @Entity
 @RequiredArgsConstructor
+@Data
 public class Trades {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String asset;
-    private double openPrice;
+    private double entryPrice;
+    private String assetCategory;
     private String tradeType;
+    private Long tradeRequestId;
     private double stopLoss;
     private double takeProfit;
     private double lotSize;
@@ -29,10 +33,20 @@ public class Trades {
     private double amountLoss;
     private double percentageLoss;
     private String profitability;
-    private String accountId;
+    private Long accountId;
     private double accountChange;
     private double tradeScore;
+    private String currency;
+    private String tradeDuration;
+    private String tradeRemarks;
+    private Long strategyId;
+    private Long planId;
+
+    private double openingBalance;
+
+    private double closingBalance;
     private boolean status;
+    private boolean isProfit;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime entryDate;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -49,18 +63,22 @@ public class Trades {
     )
     private List<Analysis> listOfAnalysis;
 
-    public Trades(Long id, String asset, double openPrice, String tradeType, double stopLoss, double takeProfit, double lotSize,
-                  double pipsProfit, double pipsLoss, double riskRewardRatio, double percentageProfit, double amountProfit,
-                  double amountLoss, double percentageLoss, String profitability, String accountId, double accountChange, double tradeScore,
-                  boolean status, LocalDateTime entryDate, LocalDateTime exitDate, List<Analysis> listOfAnalysis) {
+    public Trades(Long id, String asset, String assetCategory, double entryPrice, String tradeType, Long tradeRequestId, double stopLoss, double takeProfit,
+                  double lotSize, double pipsProfit, double pipsLoss, double riskRewardRatio, double percentageProfit, double amountProfit,
+                  double amountLoss, double percentageLoss, String profitability, Long accountId, double accountChange, double tradeScore,
+                  String tradeDuration, String tradeRemarks, Long strategyId, Long planId, double openingBalance, double closingBalance,
+                  boolean status, LocalDateTime entryDate,String currency, LocalDateTime exitDate, boolean isProfit, List<Analysis> listOfAnalysis) {
         this.id = id;
         this.asset = asset;
-        this.openPrice = openPrice;
+        this.assetCategory = assetCategory;
+        this.entryPrice = entryPrice;
         this.tradeType = tradeType;
+        this.tradeRequestId = tradeRequestId;
         this.stopLoss = stopLoss;
         this.takeProfit = takeProfit;
         this.lotSize = lotSize;
         this.pipsProfit = pipsProfit;
+        this.currency  = currency;
         this.pipsLoss = pipsLoss;
         this.riskRewardRatio = riskRewardRatio;
         this.percentageProfit = percentageProfit;
@@ -71,213 +89,32 @@ public class Trades {
         this.accountId = accountId;
         this.accountChange = accountChange;
         this.tradeScore = tradeScore;
+        this.tradeDuration = tradeDuration;
+        this.tradeRemarks = tradeRemarks;
+        this.strategyId = strategyId;
+        this.planId = planId;
+        this.isProfit = isProfit;
+        this.openingBalance = openingBalance;
+        this.closingBalance = closingBalance;
         this.status = status;
         this.entryDate = entryDate;
         this.exitDate = exitDate;
         this.listOfAnalysis = listOfAnalysis;
     }
 
-    public Long getId() {
-        return id;
+    public Trades(TradeRequest trade){
+        this.entryPrice = trade.getEntryPrice();
+        this.stopLoss = trade.getStopLossPrice();
+        this.lotSize = trade.getLotSize();
+        this.asset = trade.getAsset();
+        this.tradeType = trade.getTradeType();
+        this.currency = trade.getCurrency();
+        this.openingBalance = trade.getAccountBalance();
+        this.takeProfit = trade.getTakeProfitPrice();
+        this.tradeRequestId = trade.getRequestId();
+        this.accountId = trade.getAccountId();
+        this.assetCategory = trade.getAssetCategory();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAsset() {
-        return asset;
-    }
-
-    public void setAsset(String asset) {
-        this.asset = asset;
-    }
-
-    public double getOpenPrice() {
-        return openPrice;
-    }
-
-    public void setOpenPrice(double openPrice) {
-        this.openPrice = openPrice;
-    }
-
-    public String getTradeType() {
-        return tradeType;
-    }
-
-    public void setTradeType(String tradeType) {
-        this.tradeType = tradeType;
-    }
-
-    public double getStopLoss() {
-        return stopLoss;
-    }
-
-    public void setStopLoss(double stopLoss) {
-        this.stopLoss = stopLoss;
-    }
-
-    public double getTakeProfit() {
-        return takeProfit;
-    }
-
-    public void setTakeProfit(double takeProfit) {
-        this.takeProfit = takeProfit;
-    }
-
-    public double getLotSize() {
-        return lotSize;
-    }
-
-    public void setLotSize(double lotSize) {
-        this.lotSize = lotSize;
-    }
-
-    public double getPipsProfit() {
-        return pipsProfit;
-    }
-
-    public void setPipsProfit(double pipsProfit) {
-        this.pipsProfit = pipsProfit;
-    }
-
-    public double getPipsLoss() {
-        return pipsLoss;
-    }
-
-    public void setPipsLoss(double pipsLoss) {
-        this.pipsLoss = pipsLoss;
-    }
-
-    public double getRiskRewardRatio() {
-        return riskRewardRatio;
-    }
-
-    public void setRiskRewardRatio(double riskRewardRatio) {
-        this.riskRewardRatio = riskRewardRatio;
-    }
-
-    public double getPercentageProfit() {
-        return percentageProfit;
-    }
-
-    public void setPercentageProfit(double percentageProfit) {
-        this.percentageProfit = percentageProfit;
-    }
-
-    public double getAmountProfit() {
-        return amountProfit;
-    }
-
-    public void setAmountProfit(double amountProfit) {
-        this.amountProfit = amountProfit;
-    }
-
-    public double getAmountLoss() {
-        return amountLoss;
-    }
-
-    public void setAmountLoss(double amountLoss) {
-        this.amountLoss = amountLoss;
-    }
-
-    public double getPercentageLoss() {
-        return percentageLoss;
-    }
-
-    public void setPercentageLoss(double percentageLoss) {
-        this.percentageLoss = percentageLoss;
-    }
-
-    public String getProfitability() {
-        return profitability;
-    }
-
-    public void setProfitability(String profitability) {
-        this.profitability = profitability;
-    }
-
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
-
-    public double getAccountChange() {
-        return accountChange;
-    }
-
-    public void setAccountChange(double accountChange) {
-        this.accountChange = accountChange;
-    }
-
-    public double getTradeScore() {
-        return tradeScore;
-    }
-
-    public void setTradeScore(double tradeScore) {
-        this.tradeScore = tradeScore;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getEntryDate() {
-        return entryDate;
-    }
-
-    public void setEntryDate(LocalDateTime entryDate) {
-        this.entryDate = entryDate;
-    }
-
-    public LocalDateTime getExitDate() {
-        return exitDate;
-    }
-
-    public void setExitDate(LocalDateTime exitDate) {
-        this.exitDate = exitDate;
-    }
-
-    public List<Analysis> getListOfAnalysis() {
-        return listOfAnalysis;
-    }
-
-    public void setListOfAnalysis(List<Analysis> listOfAnalysis) {
-        this.listOfAnalysis = listOfAnalysis;
-    }
-
-    @Override
-    public String toString() {
-        return "Trades{" +
-                "id=" + id +
-                ", asset='" + asset + '\'' +
-                ", openPrice=" + openPrice +
-                ", tradeType='" + tradeType + '\'' +
-                ", stopLoss=" + stopLoss +
-                ", takeProfit=" + takeProfit +
-                ", lotSize=" + lotSize +
-                ", pipsProfit=" + pipsProfit +
-                ", pipsLoss=" + pipsLoss +
-                ", riskRewardRatio=" + riskRewardRatio +
-                ", percentageProfit=" + percentageProfit +
-                ", amountProfit=" + amountProfit +
-                ", amountLoss=" + amountLoss +
-                ", percentageLoss=" + percentageLoss +
-                ", profitability='" + profitability + '\'' +
-                ", accountId='" + accountId + '\'' +
-                ", accountChange=" + accountChange +
-                ", tradeScore=" + tradeScore +
-                ", status=" + status +
-                ", entryDate=" + entryDate +
-                ", exitDate=" + exitDate +
-                ", listOfAnalysis=" + listOfAnalysis +
-                '}';
-    }
 }
+
