@@ -3,10 +3,7 @@ package com.deriska.psydtrader.entity;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -16,8 +13,9 @@ public class TradingSystem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long systemId;
+    private Long tradingPlanId;
     private Long entryId;
     private Long exitId;
-
+    @Transient
     private List<Analysis> systemAnalysis;
 }

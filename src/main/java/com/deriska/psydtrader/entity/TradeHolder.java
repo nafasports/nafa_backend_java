@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Entity
 @RequiredArgsConstructor
 @Data
-public class TradeHolder {
+public class TradeHolder extends Auditable<String>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

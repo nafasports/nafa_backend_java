@@ -35,7 +35,7 @@ public class DerivService {
 //        RiskAnalysisRequest request = new RiskAnalysisRequest();//Replace with function that calls Deriv API to check current state of trade
         Trades trades = journalRepo.findByEntryPrice(request.getEntryPrice()).get();
         this.tradeId = trades.getId();
-        TradeHolder holder = holderRepo.findTopByTradeIdOrderByCreatedAtDesc(tradeId).get();
+        TradeHolder holder = holderRepo.findTopByTradeIdOrderByCreatedDateDesc(tradeId).get();
         int count = 0;
         if(request.isActive()) {
             if (request.getStopLossPrice() != holder.getPreviousStopLossLevel()

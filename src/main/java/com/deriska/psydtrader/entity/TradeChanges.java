@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @RequiredArgsConstructor
 @Data
-public class TradeChanges {
+public class TradeChanges extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long changeId;

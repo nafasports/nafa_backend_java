@@ -11,7 +11,5 @@ import java.util.Optional;
 public interface TradingPlanRepo extends JpaRepository<TradingPlan, Long> {
     Optional<TradingPlan> findByTradeId(Long id);
 
-    Optional<TradingPlan> findByTradeRequestId(Long requestId);
-
     Optional<TradingPlan> findByPlanName(String tradingPlanName);
 }

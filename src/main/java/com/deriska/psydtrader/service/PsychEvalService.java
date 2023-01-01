@@ -93,7 +93,7 @@ public class PsychEvalService {
         double score = trades.getTradeScore();
         TradingPlan tradingPlan = tradingPlanRepo.findByTradeId(trades.getId()).get();
         RiskManagement riskManagement = riskManagementRepo.findByTradingPlanId(tradingPlan.getPlanId()).get();
-        List<TradeChanges> changes = tradeChangesRepo.findByTradeIdOrderByCreatedAtDesc(trades.getId());
+        List<TradeChanges> changes = tradeChangesRepo.findByTradeIdOrderByCreatedDateDesc(trades.getId());
         int changeCount = changes.get(changes.size() - 1).getChangeNumber();
         TradeChanges change = new TradeChanges();
         String contractType = response.getTradeType();
@@ -258,7 +258,7 @@ public class PsychEvalService {
 
         TradingPlan tradingPlan = tradingPlanRepo.findByTradeId(trades.getId()).get();
         int count = 10;
-        List<TradeChanges> changes = tradeChangesRepo.findByTradeIdOrderByCreatedAtDesc(trades.getId());
+        List<TradeChanges> changes = tradeChangesRepo.findByTradeIdOrderByCreatedDateDesc(trades.getId());
         TradeChanges tradeHolder = changes.get(changes.size() - 1);
         RiskManagement riskManagement = riskManagementRepo.findByTradingPlanId(tradingPlan.getPlanId()).get();
         ExitStrategy exitStrategy = exitStrategyRepo.findByTradingPlanIdAndCount(tradingPlan.getPlanId(), count).get();

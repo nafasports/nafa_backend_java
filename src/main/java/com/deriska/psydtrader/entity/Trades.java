@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @RequiredArgsConstructor
 @Data
-public class Trades {
+public class Trades extends Auditable<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

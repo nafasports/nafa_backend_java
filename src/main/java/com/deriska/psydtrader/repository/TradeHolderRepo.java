@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface TradeHolderRepo extends JpaRepository<TradeHolder, Long> {
     Optional<TradeHolder> findByTradeId(Long id);
 
-    Optional<TradeHolder> findTopByTradeIdOrderByCreatedAtDesc(Long tradeId);
+    Optional<TradeHolder> findTopByTradeIdOrderByCreatedDateDesc(Long tradeId);
 }

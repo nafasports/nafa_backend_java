@@ -3,12 +3,15 @@ package com.deriska.psydtrader.entity;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @RequiredArgsConstructor
-public class TradeRequest {
-
-
+public class TradeRequest extends Auditable<String>{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long requestId;
     private Long accountId;
     private String tradeType;
