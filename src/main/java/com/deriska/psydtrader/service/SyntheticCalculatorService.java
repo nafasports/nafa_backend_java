@@ -39,7 +39,6 @@ public class SyntheticCalculatorService {
         response.setTakeProfitPips(calculateTakeProfitPips( trade.getTakeProfitPrice(), trade.getEntryPrice()));
         response.setRiskRewardRatio(calculateRiskRewardRatio(response.getProfitAmount(), response.getLossAmount()));
         response.setTradeType(trade.getTradeType());
-        response.setPercentageLoss(calculatePercentageLoss(trade.getEntryPrice(), trade.getStopLossPrice()));
 
         response.setPsychEvalScore(psychEvalService.initialTradeEvaluation(response, trade));
         currencySetter(response, trade.getExchangeRate(), currency);

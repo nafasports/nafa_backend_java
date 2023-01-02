@@ -19,10 +19,6 @@ public class CalculationService {
     public ResponseEntity<StandardResponse> calculateTradeRisk(TradeRequest trade) {
         try {
             String category = trade.getAssetCategory();
-            Trades tradeJournal = new Trades(trade);
-
-            TradeHolder tradeHolder = new TradeHolder();
-            tradeHolder.setTradeId(journalRepo.save(tradeJournal).getId());
 
             RiskAnalysisResponse response = new RiskAnalysisResponse();
             switch (category){
@@ -35,6 +31,25 @@ public class CalculationService {
             return StandardResponse.sendHttpResponse(true, "Successful", response, "200");
         } catch (Exception e) {
             return StandardResponse.sendHttpResponse(false, "Operation failed");
+        }
+    }
+
+    public RiskAnalysisResponse calculateRiskAnalysis(TradeRequest trade){
+
+        RiskAnalysisResponse response = new RiskAnalysisResponse();
+        try {
+            String category = trade.getAssetCategory();
+            switch (category){
+                case "Synthetics":
+                    response = syntheticCalculatorService.calculateAll(trade);
+                    break;
+                case "Currencies":
+                    response = currencyCalculatorService.calculateAll(trade);
+            }
+            return response;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return response;
         }
     }
 }

@@ -3,8 +3,12 @@ package com.deriska.psydtrader.service;
 import com.deriska.psydtrader.entity.*;
 import com.deriska.psydtrader.entity.Pojo.RunningTradeRequest;
 import com.deriska.psydtrader.repository.*;
+import com.deriska.psydtrader.service.websocket.WSClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.websocket.DeploymentException;
+import java.io.IOException;
 
 @Service
 public class DerivService {
@@ -30,6 +34,9 @@ public class DerivService {
 
     private Long tradeId;
 
+    public void createConnectionWithDeriv() throws DeploymentException, IOException, InterruptedException {
+        WSClient.makeConnectionToDeriv();
+    }
 
     public void evaluateTrade(RunningTradeRequest request){
 //        RiskAnalysisRequest request = new RiskAnalysisRequest();//Replace with function that calls Deriv API to check current state of trade
@@ -47,7 +54,7 @@ public class DerivService {
                 RiskManagement riskManagement = riskManagementRepo.findByTradingPlanIdAndRiskCount(tradingPlan.getPlanId(), count).get();
                 RiskAnalysisResponse response = responseRepo.findByTradeId(tradeId).get();
                 TradeRequest tradeRequest = tradeRequestRepo.findByEntryPrice(request.getEntryPrice()).get();
-                psychEvalService.evaluateWhileInTrade(response, tradeRequest, request, trades);
+                psychEvalService.evaluateWhileInTrade(response, tradeRequest, request, trades, riskManagement);
 
                 holder.setPreviousStopLossLevel(request.getStopLossPrice());
                 holder.setPreviousTakeProfitLevel(request.getTakeProfitPrice());
@@ -57,7 +64,7 @@ public class DerivService {
             }
         }else{
             TradeChanges trade = psychEvalService.updateTradeRecordAfterTradeIsClosed(request, trades);
-            tradingJournalService.updateRecordAfterClosedTraded(request, trades);
+            tradingJournalService.updateRecordAfterClosedTrade(request, trades);
         }
     }
 

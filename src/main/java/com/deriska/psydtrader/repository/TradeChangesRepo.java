@@ -11,4 +11,8 @@ import java.util.Optional;
 public interface TradeChangesRepo extends JpaRepository<TradeChanges, Long> {
 
     List<TradeChanges> findByTradeIdOrderByCreatedDateDesc(Long id);
+
+    List<TradeChanges> findByTradeIdOrderByCreatedDateAsc(Long tradeId);
+
+    List<TradeChanges> findByTradeId(Long tradeId);
 }

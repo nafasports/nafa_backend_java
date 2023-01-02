@@ -42,8 +42,8 @@ public class SwaggerConfig implements WebMvcConfigurer
 
     private ApiInfo metadata() {
         return new ApiInfoBuilder()
-                .title( "Spearhead WEB API for Reconciliation APP" )
-                .description( "Documentation of the API for the Mobile Developer" )
+                .title( "PsyDTrader WEB API for PsyD APP" )
+                .description( "Documentation of the API for the Mobile and Web Developer" )
                 .version( "1.0.0" )
                 .build();
     }

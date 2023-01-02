@@ -1,14 +1,14 @@
 package com.deriska.psydtrader.entity;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @RequiredArgsConstructor
+@Data
 public class TradeRequest extends Auditable<String>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +25,8 @@ public class TradeRequest extends Auditable<String>{
     private String assetCategory;
     private Long tradingPlanId;
     private String tradingPlanName;
+    @Transient
+    private List<Analysis> requestAnalysis;
     private String asset;
     private double accountBalance;
     private double exchangeRate;

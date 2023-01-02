@@ -17,7 +17,7 @@ public class ExitStrategy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long lossExitId;
     private Long journalId;
-
+    private Long tradingSystemId;
     private int count;
     private double targetPercentageLoss;
     private Long tradingPlanId;

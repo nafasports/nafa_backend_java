@@ -13,4 +13,6 @@ public interface ExitStrategyRepo extends JpaRepository<ExitStrategy, Long> {
     List<ExitStrategy> findByTradingPlanId(Long tradingId);
 
     Optional<ExitStrategy> findByTradingPlanIdAndCount(Long planId, int count);
+
+    List<ExitStrategy> findByTradingSystemId(Long systemId);
 }

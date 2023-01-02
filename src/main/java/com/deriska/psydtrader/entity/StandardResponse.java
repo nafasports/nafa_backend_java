@@ -23,11 +23,11 @@ public class StandardResponse {
         this.statuscode = statuscode;
     }
 
-    public StandardResponse(boolean isStatus , String message, String statuscode){
+    public StandardResponse(boolean isStatus , String message, Object data){
 
         this.status = isStatus;
         this.message = message;
-        this.statuscode = statuscode;
+        this.data = data;
     }
 
     public StandardResponse(boolean isStatus , String message){
@@ -71,8 +71,8 @@ public class StandardResponse {
         return new ResponseEntity<StandardResponse>(sr, HttpStatus.OK);
     }
 
-    public static ResponseEntity<StandardResponse> sendHttpResponse(boolean status, String message, String statuscode){
-        StandardResponse sr =  new StandardResponse(status, message, statuscode);
+    public static ResponseEntity<StandardResponse> sendHttpResponse(boolean status, String message, Object data){
+        StandardResponse sr =  new StandardResponse(status, message, data);
 
         return new ResponseEntity<StandardResponse>(sr, HttpStatus.OK);
     }

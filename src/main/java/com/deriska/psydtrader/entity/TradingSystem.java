@@ -14,6 +14,7 @@ public class TradingSystem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long systemId;
     private Long tradingPlanId;
+    private Long journalId;
     private Long entryId;
     private Long exitId;
     @Transient
