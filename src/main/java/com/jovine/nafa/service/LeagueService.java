@@ -61,25 +61,25 @@ public class LeagueService {
     public ResponseEntity<StandardResponse> updateLeague(Leagues league) {
         try {
             Leagues leagueDB = leagueRepo.findById(league.getLeagueId()).get();
-            if(Objects.nonNull(player.getFirstName()) && !"".equalsIgnoreCase(player.getFirstName())) {
-                playerDB.setFirstName(playerDB.getFirstName());
-            }
-
-            if(Objects.nonNull(user.getUserLastName()) && !"".equalsIgnoreCase(user.getUserLastName())) {
-                userDB.setUserLastName(user.getUserLastName());
-            }
-
-            if(Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail())) {
-                userDB.setEmail(user.getEmail());
-            }
-
-            if(Objects.nonNull(user.getPhoneNumber()) && !"".equalsIgnoreCase(user.getPhoneNumber())) {
-                userDB.setPhoneNumber(user.getPhoneNumber());
-            }
-
-            if(Objects.nonNull(user.getStaffId()) && !"".equalsIgnoreCase(user.getStaffId())) {
-                userDB.setStaffId(user.getStaffId());
-            }
+//            if(Objects.nonNull(player.getFirstName()) && !"".equalsIgnoreCase(player.getFirstName())) {
+//                playerDB.setFirstName(playerDB.getFirstName());
+//            }
+//
+//            if(Objects.nonNull(user.getUserLastName()) && !"".equalsIgnoreCase(user.getUserLastName())) {
+//                userDB.setUserLastName(user.getUserLastName());
+//            }
+//
+//            if(Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail())) {
+//                userDB.setEmail(user.getEmail());
+//            }
+//
+//            if(Objects.nonNull(user.getPhoneNumber()) && !"".equalsIgnoreCase(user.getPhoneNumber())) {
+//                userDB.setPhoneNumber(user.getPhoneNumber());
+//            }
+//
+//            if(Objects.nonNull(user.getStaffId()) && !"".equalsIgnoreCase(user.getStaffId())) {
+//                userDB.setStaffId(user.getStaffId());
+//            }
             return StandardResponse.sendHttpResponse(true, "Successful", leagueRepo.save(leagueDB));
         } catch (Exception e) {
             return StandardResponse.sendHttpResponse(false, "Could not update League info");

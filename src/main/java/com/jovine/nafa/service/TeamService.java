@@ -43,25 +43,25 @@ public class TeamService {
     public ResponseEntity<StandardResponse> updateTeamDetails(Teams teams){
         try {
             Teams teamDB = teamsRepo.findById(teams.getTeamId()).get();
-            if(Objects.nonNull(player.getFirstName()) && !"".equalsIgnoreCase(player.getFirstName())) {
-                playerDB.setFirstName(playerDB.getFirstName());
-            }
-
-            if(Objects.nonNull(user.getUserLastName()) && !"".equalsIgnoreCase(user.getUserLastName())) {
-                userDB.setUserLastName(user.getUserLastName());
-            }
-
-            if(Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail())) {
-                userDB.setEmail(user.getEmail());
-            }
-
-            if(Objects.nonNull(user.getPhoneNumber()) && !"".equalsIgnoreCase(user.getPhoneNumber())) {
-                userDB.setPhoneNumber(user.getPhoneNumber());
-            }
-
-            if(Objects.nonNull(user.getStaffId()) && !"".equalsIgnoreCase(user.getStaffId())) {
-                userDB.setStaffId(user.getStaffId());
-            }
+//            if(Objects.nonNull(player.getFirstName()) && !"".equalsIgnoreCase(player.getFirstName())) {
+//                playerDB.setFirstName(playerDB.getFirstName());
+//            }
+//
+//            if(Objects.nonNull(user.getUserLastName()) && !"".equalsIgnoreCase(user.getUserLastName())) {
+//                userDB.setUserLastName(user.getUserLastName());
+//            }
+//
+//            if(Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail())) {
+//                userDB.setEmail(user.getEmail());
+//            }
+//
+//            if(Objects.nonNull(user.getPhoneNumber()) && !"".equalsIgnoreCase(user.getPhoneNumber())) {
+//                userDB.setPhoneNumber(user.getPhoneNumber());
+//            }
+//
+//            if(Objects.nonNull(user.getStaffId()) && !"".equalsIgnoreCase(user.getStaffId())) {
+//                userDB.setStaffId(user.getStaffId());
+//            }
             return StandardResponse.sendHttpResponse(true, "Successful", teamsRepo.save(teamDB));
         } catch (Exception e) {
             return StandardResponse.sendHttpResponse(false, "Could not update Teams details");

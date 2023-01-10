@@ -47,21 +47,21 @@ public class PlayerService {
                 playerDB.setFirstName(player.getFirstName());
             }
 
-            if(Objects.nonNull(user.getUserLastName()) && !"".equalsIgnoreCase(user.getUserLastName())) {
-                userDB.setUserLastName(user.getUserLastName());
-            }
-
-            if(Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail())) {
-                userDB.setEmail(user.getEmail());
-            }
-
-            if(Objects.nonNull(user.getPhoneNumber()) && !"".equalsIgnoreCase(user.getPhoneNumber())) {
-                userDB.setPhoneNumber(user.getPhoneNumber());
-            }
-
-            if(Objects.nonNull(user.getStaffId()) && !"".equalsIgnoreCase(user.getStaffId())) {
-                userDB.setStaffId(user.getStaffId());
-            }
+//            if(Objects.nonNull(user.getUserLastName()) && !"".equalsIgnoreCase(user.getUserLastName())) {
+//                userDB.setUserLastName(user.getUserLastName());
+//            }
+//
+//            if(Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail())) {
+//                userDB.setEmail(user.getEmail());
+//            }
+//
+//            if(Objects.nonNull(user.getPhoneNumber()) && !"".equalsIgnoreCase(user.getPhoneNumber())) {
+//                userDB.setPhoneNumber(user.getPhoneNumber());
+//            }
+//
+//            if(Objects.nonNull(user.getStaffId()) && !"".equalsIgnoreCase(user.getStaffId())) {
+//                userDB.setStaffId(user.getStaffId());
+//            }
             return StandardResponse.sendHttpResponse(true, "Successful", playerRepository.save(playerDB));
         } catch (Exception e) {
             return StandardResponse.sendHttpResponse(false, "Could not update player");

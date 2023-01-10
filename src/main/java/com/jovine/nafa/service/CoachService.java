@@ -42,25 +42,25 @@ public class CoachService {
     public ResponseEntity<StandardResponse> updateCoachDetails(Coach coach){
         try {
             Coach coachDB = coachRepository.findById(coach.getCoachId()).get();
-            if(Objects.nonNull(player.getFirstName()) && !"".equalsIgnoreCase(player.getFirstName())) {
-                playerDB.setFirstName(playerDB.getFirstName());
-            }
-
-            if(Objects.nonNull(user.getUserLastName()) && !"".equalsIgnoreCase(user.getUserLastName())) {
-                userDB.setUserLastName(user.getUserLastName());
-            }
-
-            if(Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail())) {
-                userDB.setEmail(user.getEmail());
-            }
-
-            if(Objects.nonNull(user.getPhoneNumber()) && !"".equalsIgnoreCase(user.getPhoneNumber())) {
-                userDB.setPhoneNumber(user.getPhoneNumber());
-            }
-
-            if(Objects.nonNull(user.getStaffId()) && !"".equalsIgnoreCase(user.getStaffId())) {
-                userDB.setStaffId(user.getStaffId());
-            }
+//            if(Objects.nonNull(player.getFirstName()) && !"".equalsIgnoreCase(player.getFirstName())) {
+//                playerDB.setFirstName(playerDB.getFirstName());
+//            }
+//
+//            if(Objects.nonNull(user.getUserLastName()) && !"".equalsIgnoreCase(user.getUserLastName())) {
+//                userDB.setUserLastName(user.getUserLastName());
+//            }
+//
+//            if(Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail())) {
+//                userDB.setEmail(user.getEmail());
+//            }
+//
+//            if(Objects.nonNull(user.getPhoneNumber()) && !"".equalsIgnoreCase(user.getPhoneNumber())) {
+//                userDB.setPhoneNumber(user.getPhoneNumber());
+//            }
+//
+//            if(Objects.nonNull(user.getStaffId()) && !"".equalsIgnoreCase(user.getStaffId())) {
+//                userDB.setStaffId(user.getStaffId());
+//            }
             return StandardResponse.sendHttpResponse(true, "Successful", coachRepository.save(coachDB));
         } catch (Exception e) {
             return StandardResponse.sendHttpResponse(false, "Could not update coach details");

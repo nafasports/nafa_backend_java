@@ -3,11 +3,9 @@ package com.jovine.nafa.entity;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @RequiredArgsConstructor
@@ -18,5 +16,7 @@ public class Fixtures {
     private Long fixtureId;
     private String fixName;
     private LocalDateTime fixtureDate;
+    @Transient
+    private List<Games> gamesList;
 
 }
