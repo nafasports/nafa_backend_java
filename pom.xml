@@ -8,11 +8,11 @@
         <version>2.7.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.deriska</groupId>
-    <artifactId>PsyD</artifactId>
+    <groupId>com.jovine</groupId>
+    <artifactId>nafa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>PsyDTrader</name>
-    <description>Project for Risk management</description>
+    <name>NafaSports</name>
+    <description>Project for Nafa Sports Federation</description>
     <properties>
         <java.version>19</java.version>
     </properties>
