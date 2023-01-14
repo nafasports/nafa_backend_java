@@ -22,7 +22,12 @@ public class Games {
     private String awayTeam;
     private LocalDateTime gameDate;
     private LocalTime gameTime;
+    private String state;
     private String gameSeason;
+    private String gameGroup;
+    private String gameGender;
+    private String groupGender;
+    private String gameDistrict;
     private int homeTeamScore;
     private int awayTeamScore;
     private String referee;

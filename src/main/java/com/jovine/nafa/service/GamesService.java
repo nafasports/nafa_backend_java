@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -66,6 +67,46 @@ public class GamesService {
             return StandardResponse.sendHttpResponse(true, "Successfully deleted");
         } catch (Exception e) {
             return StandardResponse.sendHttpResponse(false, "Could not delete all games");
+        }
+    }
+
+    public ResponseEntity<StandardResponse> getGamesByState(String state) {
+        try {
+            List<Games> gameList = gamesRepo.findByState(state);
+            return StandardResponse.sendHttpResponse(true, "Successful", gameList);
+        } catch (Exception e) {
+            return StandardResponse.sendHttpResponse(false, "Could not get games for this state");
+        }
+    }
+
+    public ResponseEntity<StandardResponse> getGamesByGroup(String state, String group) {
+        try {
+            List<Games> gamesList = gamesRepo.findByState(state);
+            List<Games> groupGames = new ArrayList<>();
+            for(Games g : gamesList){
+                if(g.getGameGroup().equalsIgnoreCase(group)){
+                    groupGames.add(g);
+                }
+            }
+            return StandardResponse.sendHttpResponse(true, "Successful", groupGames);
+        } catch (Exception e) {
+            return StandardResponse.sendHttpResponse(false, "Could not get groups by state");
+        }
+    }
+
+
+    public ResponseEntity<StandardResponse> getGamesByDistrict(String state, String district) {
+        try {
+            List<Games> gamesList = gamesRepo.findByState(state);
+            List<Games> districtGames = new ArrayList<>();
+            for(Games g : gamesList){
+                if(g.getGameDistrict().equalsIgnoreCase(district)){
+                    districtGames.add(g);
+                }
+            }
+            return StandardResponse.sendHttpResponse(true, "Successful", districtGames);
+        } catch (Exception e) {
+            return StandardResponse.sendHttpResponse(false, "Could not get games by district");
         }
     }
 }

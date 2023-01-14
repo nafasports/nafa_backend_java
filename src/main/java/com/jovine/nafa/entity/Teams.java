@@ -18,6 +18,10 @@ public class Teams {
     private String teamName;
     private String teamState;
     private String teamLeague;
+    private String teamGender;
+    private String genderGroup;
+    private String teamGroup;
+    private String teamDistrict;
     private Long leagueId;
     private String teamCoach;
     private Long coachId;

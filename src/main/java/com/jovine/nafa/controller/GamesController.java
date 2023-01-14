@@ -31,10 +31,24 @@ public class GamesController {
     public ResponseEntity<StandardResponse> gamesByRange(@RequestParam("startDate")LocalDateTime startDate, @RequestParam("endDate")LocalDateTime endDate){
         return gamesService.getGamesByDateRange(startDate, endDate);
     }
+    @GetMapping("/getgamesbystate")
+    public ResponseEntity<StandardResponse> getGamesByGroup(@RequestParam("state")String state){
+        return gamesService.getGamesByState(state);
+    }
+    @GetMapping("/getgamesbygroup")
+    public ResponseEntity<StandardResponse> getGamesByGroup(@RequestParam("state") String state, @RequestParam("group") String group){
+        return gamesService.getGamesByGroup(state, group);
+    }
+
+    @GetMapping("/getgamesbydistrict")
+    public ResponseEntity<StandardResponse> getGamesByDistrict(@RequestParam("state") String state, @RequestParam("district") String district){
+        return gamesService.getGamesByDistrict(state, district);
+    }
     @DeleteMapping("/deletegame")
     public ResponseEntity<StandardResponse> deleteGame(@RequestParam("gameId") Long gameId){
         return gamesService.deleteGame(gameId);
     }
+
     @DeleteMapping("/deleteallgames")
     public ResponseEntity<StandardResponse> deleteallgames(){
         return gamesService.deleteAllGames();

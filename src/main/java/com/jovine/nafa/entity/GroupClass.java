@@ -11,10 +11,12 @@ import javax.persistence.Id;
 @Entity
 @RequiredArgsConstructor
 @Data
-public class Tournament {
+public class GroupClass {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String tournamentName;
-    private String imageUrl;
+    private String groupName;
+    private String groupGender;
+    private String groupState;
+    private int groupNumber;
 }

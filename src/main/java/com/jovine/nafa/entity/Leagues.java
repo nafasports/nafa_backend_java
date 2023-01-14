@@ -18,9 +18,11 @@ public class Leagues {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long leagueId;
     private String leagueName;
-    private String tournamentName;
+    private String leagueTournament;
     private String leagueSeason;
     private String leagueGroup;
+    private String district;
+    private String leagueState;
     private LocalDate startDate;
     private LocalDate endDate;
 }

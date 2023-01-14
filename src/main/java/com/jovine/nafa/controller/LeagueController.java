@@ -27,6 +27,10 @@ public class LeagueController {
     public ResponseEntity<StandardResponse> getLeagueAndTeams(@RequestParam("leagueId") Long leagueId){
         return leagueService.getLeagueAndTeams(leagueId);
     }
+    @GetMapping("getleaguesbytournament")
+    public ResponseEntity<StandardResponse> getLeaguesByTournament(@RequestParam("tournament") String tournament){
+        return leagueService.getLeaguesByTournament(tournament);
+    }
 
     @GetMapping("/getallleagues")
     public ResponseEntity<StandardResponse> getAllLeagues(){

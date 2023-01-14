@@ -11,10 +11,10 @@ import javax.persistence.Id;
 @Entity
 @RequiredArgsConstructor
 @Data
-public class Groups {
+public class Districts {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long groupId;
-    private String groupName;
-    private int groupNumber;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String districtLetter;
+    private String districtNumber;
 }

@@ -61,25 +61,24 @@ public class LeagueService {
     public ResponseEntity<StandardResponse> updateLeague(Leagues league) {
         try {
             Leagues leagueDB = leagueRepo.findById(league.getLeagueId()).get();
-//            if(Objects.nonNull(player.getFirstName()) && !"".equalsIgnoreCase(player.getFirstName())) {
-//                playerDB.setFirstName(playerDB.getFirstName());
-//            }
-//
-//            if(Objects.nonNull(user.getUserLastName()) && !"".equalsIgnoreCase(user.getUserLastName())) {
-//                userDB.setUserLastName(user.getUserLastName());
-//            }
-//
-//            if(Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail())) {
-//                userDB.setEmail(user.getEmail());
-//            }
-//
-//            if(Objects.nonNull(user.getPhoneNumber()) && !"".equalsIgnoreCase(user.getPhoneNumber())) {
-//                userDB.setPhoneNumber(user.getPhoneNumber());
-//            }
-//
-//            if(Objects.nonNull(user.getStaffId()) && !"".equalsIgnoreCase(user.getStaffId())) {
-//                userDB.setStaffId(user.getStaffId());
-//            }
+            if(Objects.nonNull(league.getLeagueName()) && !"".equalsIgnoreCase(league.getLeagueName())) {
+                leagueDB.setLeagueName(league.getLeagueName());
+            }
+
+            if(Objects.nonNull(league.getLeagueSeason()) && "".equalsIgnoreCase(league.getLeagueSeason())){
+                leagueDB.setLeagueSeason(league.getLeagueSeason());
+            }
+            if(Objects.nonNull(league.getLeagueState()) && !"".equalsIgnoreCase(league.getLeagueState())) {
+                leagueDB.setLeagueState(league.getLeagueState());
+            }
+
+            if(Objects.nonNull(league.getLeagueTournament()) && !"".equalsIgnoreCase(league.getLeagueTournament())) {
+                leagueDB.setLeagueTournament(league.getLeagueTournament());
+            }
+
+            if(Objects.nonNull(league.getLeagueGroup()) && !"".equalsIgnoreCase(league.getLeagueGroup())) {
+                leagueDB.setLeagueGroup(league.getLeagueGroup());
+            }
             return StandardResponse.sendHttpResponse(true, "Successful", leagueRepo.save(leagueDB));
         } catch (Exception e) {
             return StandardResponse.sendHttpResponse(false, "Could not update League info");
@@ -102,6 +101,15 @@ public class LeagueService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return StandardResponse.sendHttpResponse(false, "Could not delete All leagues");
+        }
+    }
+
+    public ResponseEntity<StandardResponse> getLeaguesByTournament(String tournament) {
+        try {
+            List<Leagues> leaguesList = leagueRepo.findByLeagueTournament(tournament);
+            return StandardResponse.sendHttpResponse(true, "Successful");
+        } catch (Exception e) {
+            return StandardResponse.sendHttpResponse(false, "Could not get teams in tournament");
         }
     }
 }
