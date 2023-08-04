@@ -12,4 +12,6 @@ public interface GamesRepository extends JpaRepository<Games, Long> {
     List<Games> findByGameDate(LocalDateTime gameDate);
 
     List<Games> findByGameDateGreaterThanEqualAndGameDateLessThanEqual(LocalDateTime startDate, LocalDateTime endDate);
+
+    List<Games> findByState(String state);
 }

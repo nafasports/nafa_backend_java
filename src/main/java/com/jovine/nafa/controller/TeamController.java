@@ -30,6 +30,10 @@ public class TeamController{
     public ResponseEntity<StandardResponse> updateTeamDetails(@RequestBody Teams teams){
         return teamService.updateTeamDetails(teams);
     }
+    @GetMapping("/getteamsbystate")
+    public ResponseEntity<StandardResponse> getTeamsByState(@RequestParam("state") String state){
+        return teamService.getTeamsByState(state);
+    }
     @DeleteMapping("/deleteteam")
     public ResponseEntity<StandardResponse> deleteTeam(@RequestParam("teamId") Long teamId){
         return teamService.deleteTeam(teamId);

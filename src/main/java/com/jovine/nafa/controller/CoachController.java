@@ -17,7 +17,6 @@ public class CoachController {
     public ResponseEntity<StandardResponse> createCoach(@RequestBody Coach coach){
         return coachService.createCoach(coach);
     }
-
     @GetMapping("/getcoach")
     public ResponseEntity<StandardResponse> getCoach(@RequestParam("coachId") Long coachId){
         return coachService.getCoach(coachId);
@@ -38,4 +37,7 @@ public class CoachController {
     public ResponseEntity<StandardResponse> deleteAllCoaches(){
         return coachService.deleteAllCoaches();
     }
+
+//    @PostMapping("/uploadpicture")
+//    public ResponseEntity<StandardResponse> uploadCoachPicture(@)
 }

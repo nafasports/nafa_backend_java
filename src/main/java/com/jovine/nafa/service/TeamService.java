@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -42,27 +43,7 @@ public class TeamService {
 
     public ResponseEntity<StandardResponse> updateTeamDetails(Teams teams){
         try {
-            Teams teamDB = teamsRepo.findById(teams.getTeamId()).get();
-//            if(Objects.nonNull(player.getFirstName()) && !"".equalsIgnoreCase(player.getFirstName())) {
-//                playerDB.setFirstName(playerDB.getFirstName());
-//            }
-//
-//            if(Objects.nonNull(user.getUserLastName()) && !"".equalsIgnoreCase(user.getUserLastName())) {
-//                userDB.setUserLastName(user.getUserLastName());
-//            }
-//
-//            if(Objects.nonNull(user.getEmail()) && !"".equalsIgnoreCase(user.getEmail())) {
-//                userDB.setEmail(user.getEmail());
-//            }
-//
-//            if(Objects.nonNull(user.getPhoneNumber()) && !"".equalsIgnoreCase(user.getPhoneNumber())) {
-//                userDB.setPhoneNumber(user.getPhoneNumber());
-//            }
-//
-//            if(Objects.nonNull(user.getStaffId()) && !"".equalsIgnoreCase(user.getStaffId())) {
-//                userDB.setStaffId(user.getStaffId());
-//            }
-            return StandardResponse.sendHttpResponse(true, "Successful", teamsRepo.save(teamDB));
+            return StandardResponse.sendHttpResponse(true, "Successful", teamsRepo.save(teams));
         } catch (Exception e) {
             return StandardResponse.sendHttpResponse(false, "Could not update Teams details");
         }
@@ -83,6 +64,15 @@ public class TeamService {
             return StandardResponse.sendHttpResponse(true, "Successful");
         } catch (Exception e) {
             return StandardResponse.sendHttpResponse(false, "Could not delete all teams");
+        }
+    }
+
+    public ResponseEntity<StandardResponse> getTeamsByState(String state) {
+        try {
+            List<Teams> teamsList = teamsRepo.findByTeamState(state);
+            return StandardResponse.sendHttpResponse(true, "Successful", teamsList);
+        } catch (Exception e) {
+            return StandardResponse.sendHttpResponse(false, "Could not get teams in state");
         }
     }
 }
